@@ -10,9 +10,9 @@
     mode: '770'
     owner: nginx
     group: nginx
-    loop:
-     - "/var/www/html/www.companyplus.com"
-     - "/var/www/html/www.companypulsar.com"
+  loop:
+    - "/var/www/html/www.companyplus.com"
+    - "/var/www/html/www.companypulsar.com"
 
 - name: Copy Nginx Configuration
   template:
