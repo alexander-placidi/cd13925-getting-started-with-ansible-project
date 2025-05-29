@@ -21,8 +21,7 @@
         state: enabled
         permanent: true
         immediate: true
-      loop:
-        - "{{ ports }}"
+      loop: "{{ ports }}"
 
     - name: Check directory
       block:
