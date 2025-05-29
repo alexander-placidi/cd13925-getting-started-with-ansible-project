@@ -28,7 +28,7 @@
         - name: Get directory status
           stat:
             path: "{{ dir }}"
-            register: dir_status
+          register: dir_status
 
         - name: Directory exists
           debug:
