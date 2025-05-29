@@ -1,2 +1,44 @@
 - hosts: aws
   become: true
+  roles:
+    - webserver
+  vars:
+    dir: "/var/www/html/www.companyplus.com"
+  tasks:
+    - name: Install firewalld
+      package:
+        name: firewalld
+        state: present
+
+    - name: Start firewalld
+      service:
+        name: firewalld
+        state: started
+
+    - name: Open ports
+      firewalld:
+        port: "{{ item }}/tcp"
+        state: enabled
+        permanent: true
+        immediate: true
+      loop:
+        - "{{ ports }}"
+
+    - name: Check directory
+      block:
+        - name: Get directory status
+          stat:
+            path: "{{ dir }}"
+            register: dir_status
+
+        - name: Directory exists
+          debug:
+            msg: "Directory {{ dir }} is present"
+          when: dir_status.stat.isdir is defined and dir_status.stat.isdir
+
+        - name: Directory does not exist
+          debug:
+            msg: "Error: Directory {{ dir }} is not present"
+          when: not dir_status.stat.exists
+
+    

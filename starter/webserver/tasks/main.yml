@@ -1,0 +1,22 @@
+- name: Install nginx
+  package:
+    name: "{{ webserver }}"
+    state: present
+
+- name: Create directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '770'
+    owner: nginx
+    group: nginx
+    loop:
+     - "/var/www/html/www.companyplus.com"
+     - "/var/www/html/www.companypulsar.com"
+
+- name: Copy Nginx Configuration
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: Restart Nginx
+
