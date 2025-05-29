@@ -1,55 +1,33 @@
-# README Template
+# Getting Started with Ansible Project
 
-Below is a template provided for use when building your README file for students.
-
-# Project Title
-
-Project description goes here.
+You have a new project at your company that requires 3 new web servers. The requirements are that the web servers must be all consistent, configuration must be controlled and be quick to apply. Each web server must adhere to the given configuration parameters. All VMs will be running in AWS.
 
 ## Getting Started
 
-Instructions for how to get a copy of the project running on your local machine.
-
-### Dependencies
-
+Check out project
 ```
-Examples here
+git clone https://github.com/alexander-placidi/cd13925-getting-started-with-ansible-project.git
 ```
 
 ### Installation
 
 Step by step explanation of how to get a dev environment running.
 
-List out the steps
-
-```
-Give an example here
-```
-
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
-
-```
-Examples here
-```
+1. Create an EC2 instance
+2. Name it `ansible-master`
+3. Connect to the instance via the AWS console
+4. Perform the following tasks  
+    a. Set the hostname to ansible-master: `sudo hostname ansible-master`    
+    b. Install Ansible on the master node: `sudo dnf install ansible`   
+    c. Run `ssh-keygen -t rsa` to generate an SSH key pair for use in other Ansible instances   
+    d. Copy the contents of the file `~/.ssh/id_rsa.pub` to your clipboard      
+5. Create 3 additional EC2 instances
+6. Connect to each of the 3 instances and insert the key into the authorized_hosts file: `vi ~/.ssh/authorized_keys`    
+7. Create your inventory file with the DNS information of the 3 instances you just spun up and put them in a group named aws in the inventory file.
 
 ## Project Instructions
 
-This section should contain all the student deliverables for this project.
-
-## Built With
-
-* [Item1](www.item1.com) - Description of item
-* [Item2](www.item2.com) - Description of item
-* [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
-
-## License
-
-[License](LICENSE.txt)
+Run the playbook: 
+```
+ansible-playbook playbook.yml -i inventory.ini
+```
