@@ -31,3 +31,7 @@ Run the playbook:
 ```
 ansible-playbook playbook.yml -i inventory.ini
 ```
+### Output
+
+![console output](screenshots/ansible_output_1.png)
+![console output](screenshots/ansible_output_2.png)
